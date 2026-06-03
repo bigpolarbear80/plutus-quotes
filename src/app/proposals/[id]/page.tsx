@@ -18,9 +18,15 @@ function ProposalDocument({ quote, showCommission }: { quote: QuoteResult; showC
   return (
     <div id="proposal-document" className="bg-white border border-gray-200 rounded-xl p-8 print:border-0 print:rounded-none print:p-0">
       {/* Header */}
-      <div className="border-b-2 border-gray-900 pb-4 mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">PLUTUS VENTURES</h1>
-        <p className="text-sm text-gray-500 mt-1">Petroleum Trading &amp; Brokerage</p>
+      <div className="border-b border-gray-300 pb-4 mb-6 flex items-center justify-between">
+        <div>
+          <img src="/logo.png" alt="Plutus Ventures" className="h-10" />
+        </div>
+        <div className="text-right text-xs text-gray-400">
+          <p>mike@plutusv.com</p>
+          <p>480-689-9405</p>
+          <p>plutusv.com</p>
+        </div>
       </div>
 
       {/* Title */}
@@ -118,9 +124,9 @@ function ProposalDocument({ quote, showCommission }: { quote: QuoteResult; showC
       </div>
 
       {/* Contact */}
-      <div className="border-t-2 border-gray-900 pt-4 mt-8">
+      <div className="border-t border-gray-300 pt-4 mt-8">
         <p className="text-sm font-medium">Plutus Ventures</p>
-        <p className="text-xs text-gray-500 mt-1">[Address] &bull; [Phone] &bull; [Email]</p>
+        <p className="text-xs text-gray-500 mt-1">Mike Thompson &bull; 480-689-9405 &bull; mike@plutusv.com &bull; plutusv.com</p>
         <p className="text-xs text-gray-400 mt-2 italic">This Soft Corporate Offer is subject to final contract negotiation and execution. All terms are indicative and non-binding until a definitive agreement is signed by both parties.</p>
       </div>
     </div>

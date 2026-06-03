@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,18 +14,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-50 text-gray-900 min-h-screen`}>
-        <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center gap-8">
-          <Link href="/" className="text-xl font-bold text-gray-900 tracking-tight">
-            Plutus Ventures
+      <body className={`${inter.className} bg-white text-gray-900 min-h-screen`}>
+        <nav className="border-b border-gray-200 px-8 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="Plutus Ventures" width={200} height={38} priority />
           </Link>
-          <div className="flex gap-6 text-sm font-medium">
-            <Link href="/quote" className="text-gray-600 hover:text-gray-900">New Quote</Link>
-            <Link href="/quotes" className="text-gray-600 hover:text-gray-900">Quotes</Link>
-            <Link href="/admin" className="text-gray-600 hover:text-gray-900">Pricing</Link>
+          <div className="flex gap-8 text-xs font-medium uppercase tracking-widest text-gray-500">
+            <Link href="/quote" className="hover:text-gray-900 transition-colors">New Quote</Link>
+            <Link href="/quotes" className="hover:text-gray-900 transition-colors">Quotes</Link>
+            <Link href="/admin" className="hover:text-gray-900 transition-colors">Pricing</Link>
           </div>
         </nav>
-        <main className="max-w-6xl mx-auto px-6 py-8">{children}</main>
+        <main className="max-w-5xl mx-auto px-8 py-10">{children}</main>
       </body>
     </html>
   );
