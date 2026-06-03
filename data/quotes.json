@@ -1,0 +1,94 @@
+[
+  {
+    "id": "546a2db0-1dae-4163-8130-201004b0a549",
+    "createdAt": "2026-06-03T13:25:51.924Z",
+    "input": {
+      "buyerCompany": "Paul Chin (Importer)",
+      "buyerContact": "Paul Chin",
+      "buyerEmail": "paul.chin@placeholder.com",
+      "fuelProduct": "EN590",
+      "deliveryTerm": "FOB",
+      "destinationPort": "China",
+      "quantity": 100000,
+      "quantityUnit": "MT",
+      "monthlyQuantity": 100000,
+      "monthlyQuantityUnit": "MT",
+      "contractDurationMonths": 1,
+      "notes": "Diesel EN590 10 PPM. From non-sanction country. Payment: L/C. Looking for suppliers worldwide. Single shipment order."
+    },
+    "pricePerUnit": 540,
+    "priceUnit": "MT",
+    "mtPrice": 540,
+    "lineTotal": 54000000,
+    "monthlyValue": 54000000,
+    "totalContractValue": 54000000,
+    "commissionPerUnit": 5,
+    "commissionUnit": "MT",
+    "commissionMonthly": 500000,
+    "commissionTotal": 500000,
+    "fuel": {
+      "id": "fob-en590",
+      "name": "EN590",
+      "price": 540,
+      "unit": "MT",
+      "mtPrice": 540,
+      "commission": 5,
+      "commissionUnit": "MT"
+    },
+    "deliveryTerm": "FOB",
+    "ports": [
+      "Houston",
+      "Rotterdam",
+      "Fujairah",
+      "Jurong",
+      "China"
+    ],
+    "procedure": "Buyer issues ICPO → Seller issues FCO → Buyer signs and returns FCO → Seller issues draft contract → Both parties sign → Buyer opens financial instrument → Seller arranges loading and shipping.",
+    "asOfDate": "2026-06-02"
+  },
+  {
+    "id": "74ccf6ef-7c86-40d2-88cc-69c0f25f36ba",
+    "createdAt": "2026-06-03T12:58:22.403Z",
+    "input": {
+      "buyerCompany": "Gulf Energy Trading LLC",
+      "buyerContact": "Ahmed Al-Rashid",
+      "buyerEmail": "ahmed@gulfenergy.ae",
+      "fuelProduct": "Jet A",
+      "deliveryTerm": "CIF",
+      "destinationPort": "Fujairah",
+      "quantity": 10000,
+      "quantityUnit": "barrel",
+      "monthlyQuantity": 10000,
+      "monthlyQuantityUnit": "barrel",
+      "contractDurationMonths": 12
+    },
+    "pricePerUnit": 82,
+    "priceUnit": "barrel",
+    "mtPrice": 645,
+    "lineTotal": 820000,
+    "monthlyValue": 820000,
+    "totalContractValue": 9840000,
+    "commissionPerUnit": 1,
+    "commissionUnit": "barrel",
+    "commissionMonthly": 10000,
+    "commissionTotal": 120000,
+    "fuel": {
+      "id": "cif-jeta",
+      "name": "Jet A",
+      "price": 82,
+      "unit": "barrel",
+      "mtPrice": 645,
+      "commission": 1,
+      "commissionUnit": "barrel"
+    },
+    "deliveryTerm": "CIF",
+    "ports": [
+      "Houston",
+      "Rotterdam",
+      "Fujairah",
+      "Jurong"
+    ],
+    "procedure": "Buyer issues ICPO → Seller issues FCO → Buyer signs and returns FCO → Seller issues draft contract → Both parties sign → Buyer opens financial instrument → Seller arranges loading and shipping to destination port.",
+    "asOfDate": "2026-06-02"
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "fob": {
+    "asOfDate": "2026-06-02",
+    "ports": ["Houston", "Rotterdam", "Fujairah", "Jurong", "China"],
+    "procedure": "Buyer issues ICPO → Seller issues FCO → Buyer signs and returns FCO → Seller issues draft contract → Both parties sign → Buyer opens financial instrument → Seller arranges loading and shipping.",
+    "fuels": [
+      {
+        "id": "fob-en590",
+        "name": "EN590",
+        "price": 540,
+        "unit": "MT",
+        "mtPrice": 540.00,
+        "commission": 5,
+        "commissionUnit": "MT"
+      },
+      {
+        "id": "fob-jeta",
+        "name": "Jet A",
+        "price": 86,
+        "unit": "barrel",
+        "mtPrice": 676,
+        "commission": 1.00,
+        "commissionUnit": "barrel"
+      },
+      {
+        "id": "fob-d6",
+        "name": "D6",
+        "price": 1.11,
+        "unit": "gallon",
+        "mtPrice": 296.37,
+        "commission": 0.02,
+        "commissionUnit": "gallon"
+      }
+    ]
+  },
+  "cif": {
+    "asOfDate": "2026-06-02",
+    "ports": ["Houston", "Rotterdam", "Fujairah", "Jurong"],
+    "procedure": "Buyer issues ICPO → Seller issues FCO → Buyer signs and returns FCO → Seller issues draft contract → Both parties sign → Buyer opens financial instrument → Seller arranges loading and shipping to destination port.",
+    "cifPriceIncrease": 10.00,
+    "fuels": [
+      {
+        "id": "cif-en590",
+        "name": "EN590",
+        "price": 550,
+        "unit": "MT",
+        "mtPrice": 550.00,
+        "commission": 30,
+        "commissionUnit": "MT"
+      },
+      {
+        "id": "cif-jeta",
+        "name": "Jet A",
+        "price": 82,
+        "unit": "barrel",
+        "mtPrice": 645,
+        "commission": 1.00,
+        "commissionUnit": "barrel"
+      },
+      {
+        "id": "cif-d6",
+        "name": "D6",
+        "price": 1.06,
+        "unit": "gallon",
+        "mtPrice": 283.02,
+        "commission": 0.02,
+        "commissionUnit": "gallon"
+      }
+    ]
+  }
+}
