@@ -1,7 +1,7 @@
 {
   "fob": {
     "asOfDate": "2026-06-02",
-    "ports": ["Houston", "Rotterdam", "Fujairah", "Jurong", "China"],
+    "ports": ["Houston", "Rotterdam", "Fujairah", "Jurong"],
     "procedure": "Buyer issues ICPO → Seller issues FCO → Buyer signs and returns FCO → Seller issues draft contract → Both parties sign → Buyer opens financial instrument → Seller arranges loading and shipping.",
     "fuels": [
       {

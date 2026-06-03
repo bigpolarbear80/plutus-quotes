@@ -79,7 +79,7 @@ function ProposalDocument({ quote, showCommission }: { quote: QuoteResult; showC
           <tbody className="divide-y divide-gray-100">
             <tr><td className="py-2 text-gray-500 w-48">Order Quantity</td><td className="py-2">{fmt(quote.input.quantity)} {quote.input.quantityUnit}</td></tr>
             <tr><td className="py-2 text-gray-500">Monthly Quantity</td><td className="py-2">{fmt(quote.input.monthlyQuantity)} {quote.input.monthlyQuantityUnit}</td></tr>
-            <tr><td className="py-2 text-gray-500">Contract Duration</td><td className="py-2">{quote.input.contractDurationMonths} months</td></tr>
+            <tr><td className="py-2 text-gray-500">Contract Duration</td><td className="py-2">{quote.input.contractDurationMonths} {quote.input.contractDurationMonths === 1 ? 'month' : 'months'}</td></tr>
           </tbody>
         </table>
       </div>
@@ -90,7 +90,7 @@ function ProposalDocument({ quote, showCommission }: { quote: QuoteResult; showC
         <table className="w-full text-sm">
           <tbody className="divide-y divide-gray-100">
             <tr><td className="py-2 text-gray-500 w-48">Price per {quote.priceUnit}</td><td className="py-2 font-medium">${fmt(quote.pricePerUnit)}</td></tr>
-            <tr><td className="py-2 text-gray-500">Price per MT</td><td className="py-2">${fmt(quote.mtPrice)}</td></tr>
+            {quote.priceUnit !== 'MT' && <tr><td className="py-2 text-gray-500">Price per MT</td><td className="py-2">${fmt(quote.mtPrice)}</td></tr>}
             <tr><td className="py-2 text-gray-500">Monthly Value</td><td className="py-2 font-medium">${fmt(quote.monthlyValue)}</td></tr>
             <tr><td className="py-2 text-gray-500">Total Contract Value</td><td className="py-2 font-bold text-lg">${fmt(quote.totalContractValue)}</td></tr>
             {showCommission && (
@@ -158,7 +158,7 @@ function InternalSummary({ quote }: { quote: QuoteResult }) {
           <tr><td className="py-2 text-gray-500">Commission per {quote.commissionUnit}</td><td className="py-2 font-medium">${fmt(quote.commissionPerUnit)}</td></tr>
           <tr><td className="py-2 text-gray-500">Monthly Quantity</td><td className="py-2">{fmt(quote.input.monthlyQuantity)} {quote.input.monthlyQuantityUnit}</td></tr>
           <tr><td className="py-2 text-gray-500">Monthly Commission</td><td className="py-2 font-medium">${fmt(quote.commissionMonthly)}</td></tr>
-          <tr><td className="py-2 text-gray-500">Contract Duration</td><td className="py-2">{quote.input.contractDurationMonths} months</td></tr>
+          <tr><td className="py-2 text-gray-500">Contract Duration</td><td className="py-2">{quote.input.contractDurationMonths} {quote.input.contractDurationMonths === 1 ? 'month' : 'months'}</td></tr>
           <tr className="bg-green-50"><td className="py-2 text-gray-500 font-medium">Total Commission (Full Contract)</td><td className="py-2 font-bold text-lg text-green-700">${fmt(quote.commissionTotal)}</td></tr>
           <tr><td className="py-2 text-gray-500">Total Contract Value</td><td className="py-2">${fmt(quote.totalContractValue)}</td></tr>
           <tr><td className="py-2 text-gray-500">Commission %</td><td className="py-2">{(quote.commissionTotal / quote.totalContractValue * 100).toFixed(3)}%</td></tr>
@@ -196,6 +196,14 @@ export default function ProposalPage({ params }: { params: Promise<{ id: string 
   function printDocument(elementId: string) {
     const content = document.getElementById(elementId);
     if (!content) return;
+    // Fix logo src to absolute URL before printing
+    const clone = content.cloneNode(true) as HTMLElement;
+    const imgs = clone.querySelectorAll('img');
+    imgs.forEach(img => {
+      if (img.src && img.src.startsWith('/')) {
+        img.src = window.location.origin + img.src;
+      }
+    });
     const win = window.open('', '_blank');
     if (!win) return;
     win.document.write(`
@@ -205,27 +213,26 @@ export default function ProposalPage({ params }: { params: Promise<{ id: string 
         <title>Plutus Ventures - ${elementId === 'proposal-document' ? 'Proposal' : 'Internal Summary'}</title>
         <style>
           * { margin: 0; padding: 0; box-sizing: border-box; }
-          body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; padding: 40px; color: #111; font-size: 14px; }
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 40px; color: #111; font-size: 14px; }
           table { width: 100%; border-collapse: collapse; }
           td { padding: 8px 0; }
-          .text-gray-500, td:first-child { color: #6b7280; }
+          .text-gray-500 { color: #6b7280; }
+          td:first-child { color: #6b7280; }
           .font-medium { font-weight: 500; }
           .font-bold { font-weight: 700; }
           .font-semibold { font-weight: 600; }
           .text-lg { font-size: 18px; }
-          .text-2xl { font-size: 24px; }
           .text-xl { font-size: 20px; }
           .text-xs { font-size: 12px; }
           .text-sm { font-size: 14px; }
           .uppercase { text-transform: uppercase; }
           .tracking-wide { letter-spacing: 0.05em; }
-          .tracking-tight { letter-spacing: -0.025em; }
           .italic { font-style: italic; }
           .text-center { text-align: center; }
+          .text-right { text-align: right; }
           h1, h2, h3 { margin-bottom: 8px; }
-          .border-b { border-bottom: 1px solid #e5e7eb; }
-          .border-b-2 { border-bottom: 2px solid #111; }
-          .border-t-2 { border-top: 2px solid #111; }
+          .border-b { border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; }
+          .border-t { border-top: 1px solid #d1d5db; }
           .divide-y > tr + tr { border-top: 1px solid #f3f4f6; }
           .bg-yellow-50 { background: #fefce8; }
           .bg-green-50 { background: #f0fdf4; }
@@ -242,11 +249,9 @@ export default function ProposalPage({ params }: { params: Promise<{ id: string 
           .mt-4 { margin-top: 16px; }
           .mt-8 { margin-top: 32px; }
           .pb-2 { padding-bottom: 8px; }
-          .pb-4 { padding-bottom: 16px; }
           .pt-4 { padding-top: 16px; }
           .p-3 { padding: 12px; }
           .rounded-lg { border-radius: 8px; }
-          .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
           .w-48 { width: 192px; }
           .font-mono { font-family: monospace; }
           .bg-blue-50 { background: #eff6ff; }
@@ -254,14 +259,25 @@ export default function ProposalPage({ params }: { params: Promise<{ id: string 
           .bg-gray-50 { background: #f9fafb; }
           .text-gray-600 { color: #4b5563; }
           .text-gray-400 { color: #9ca3af; }
+          .justify-between { display: flex; justify-content: space-between; align-items: flex-start; }
+          .flex { display: flex; }
+          .items-center { align-items: center; }
+          .gap-2 { gap: 8px; }
+          .h-10 { height: 40px; }
+          ol { padding-left: 20px; }
+          ol li { margin-bottom: 8px; line-height: 1.6; }
+          .space-y-2 > * + * { margin-top: 8px; }
+          .list-decimal { list-style-type: decimal; }
+          .list-inside { list-style-position: inside; }
+          img { max-height: 40px; }
           @media print { body { padding: 20px; } }
         </style>
       </head>
-      <body>${content.innerHTML}</body>
+      <body>${clone.innerHTML}</body>
       </html>
     `);
     win.document.close();
-    win.print();
+    setTimeout(() => win.print(), 500);
   }
 
   return (
