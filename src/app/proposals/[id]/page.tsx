@@ -106,8 +106,18 @@ function ProposalDocument({ quote, showCommission }: { quote: QuoteResult; showC
 
       {/* Procedure */}
       <div className="mb-8">
-        <h3 className="text-sm font-semibold uppercase text-gray-500 tracking-wide mb-3 border-b pb-2">Transaction Procedure</h3>
-        <p className="text-sm leading-relaxed">{quote.procedure}</p>
+        <h3 className="text-sm font-semibold uppercase text-gray-500 tracking-wide mb-3 border-b pb-2">
+          Transaction Procedure{quote.procedureName ? ` — ${quote.procedureName}` : ''}
+        </h3>
+        {quote.procedureSteps && quote.procedureSteps.length > 0 ? (
+          <ol className="text-sm leading-relaxed space-y-2 list-decimal list-inside">
+            {quote.procedureSteps.map((step, i) => (
+              <li key={i} className="pl-1">{step}</li>
+            ))}
+          </ol>
+        ) : (
+          <p className="text-sm leading-relaxed">{quote.procedure}</p>
+        )}
       </div>
 
       {/* Terms */}

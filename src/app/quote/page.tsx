@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { PricingConfig } from '@/lib/types';
+import { PROCEDURES, ProcedureTemplate } from '@/lib/procedures';
 
 export default function QuotePage() {
   const router = useRouter();
@@ -23,6 +24,7 @@ export default function QuotePage() {
     monthlyQuantityUnit: '',
     contractDurationMonths: '',
     buyerTargetPrice: '',
+    procedureId: '',
     notes: '',
   });
 
@@ -34,6 +36,7 @@ export default function QuotePage() {
   const fuels = section?.fuels || [];
   const ports = section?.ports || [];
   const selectedFuel = fuels.find((f) => f.name === form.fuelProduct);
+  const availableProcedures = PROCEDURES.filter(p => p.applicableTo.includes(form.deliveryTerm));
 
   useEffect(() => {
     if (selectedFuel && !form.quantityUnit) {
@@ -82,6 +85,7 @@ export default function QuotePage() {
       monthlyQuantityUnit: form.monthlyQuantityUnit || selectedFuel?.unit || 'MT',
       contractDurationMonths: parseInt(form.contractDurationMonths),
       buyerTargetPrice: form.buyerTargetPrice ? parseFloat(form.buyerTargetPrice) : undefined,
+      procedureId: form.procedureId || undefined,
       notes: form.notes || undefined,
     };
 
@@ -139,6 +143,7 @@ export default function QuotePage() {
                   set('deliveryTerm', e.target.value);
                   set('fuelProduct', '');
                   set('destinationPort', '');
+                  set('procedureId', '');
                 }}
               >
                 <option value="FOB">FOB</option>
@@ -166,6 +171,22 @@ export default function QuotePage() {
             </select>
             {errors.destinationPort && <p className={errorClass}>{errors.destinationPort}</p>}
           </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1">Transaction Procedure</label>
+            <select className={inputClass} value={form.procedureId} onChange={(e) => set('procedureId', e.target.value)}>
+              <option value="">Select procedure...</option>
+              {availableProcedures.map((p) => (
+                <option key={p.id} value={p.id}>{p.name}</option>
+              ))}
+            </select>
+          </div>
+          {form.procedureId && (
+            <div className="bg-gray-50 rounded-lg p-4 text-xs text-gray-600 space-y-1.5 max-h-48 overflow-y-auto">
+              {PROCEDURES.find(p => p.id === form.procedureId)?.steps.map((step, i) => (
+                <p key={i}><span className="font-medium text-gray-800">{i + 1}.</span> {step}</p>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Quantity */}

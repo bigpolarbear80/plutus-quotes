@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { PricingConfig, QuoteInput, QuoteResult, FuelEntry } from './types';
 import { normalizeQuantityToUnit } from './conversions';
+import { getProcedureById } from './procedures';
 
 export function calculateQuote(input: QuoteInput, pricing: PricingConfig): QuoteResult {
   const section = input.deliveryTerm === 'FOB' ? pricing.fob : pricing.cif;
@@ -28,6 +29,8 @@ export function calculateQuote(input: QuoteInput, pricing: PricingConfig): Quote
   const commissionMonthly = commissionPerUnit * monthlyInNativeUnit;
   const commissionTotal = commissionMonthly * input.contractDurationMonths;
 
+  const procedure = input.procedureId ? getProcedureById(input.procedureId) : undefined;
+
   return {
     id: uuidv4(),
     createdAt: new Date().toISOString(),
@@ -45,7 +48,10 @@ export function calculateQuote(input: QuoteInput, pricing: PricingConfig): Quote
     fuel,
     deliveryTerm: input.deliveryTerm,
     ports: section.ports,
-    procedure: section.procedure,
+    procedure: procedure ? procedure.name : section.procedure,
+    procedureId: procedure?.id,
+    procedureName: procedure?.name,
+    procedureSteps: procedure?.steps,
     asOfDate: section.asOfDate,
   };
 }

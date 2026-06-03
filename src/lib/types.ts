@@ -39,6 +39,7 @@ export interface QuoteInput {
   monthlyQuantityUnit: string;
   contractDurationMonths: number;
   buyerTargetPrice?: number;
+  procedureId?: string;
   notes?: string;
 }
 
@@ -46,6 +47,9 @@ export interface QuoteResult {
   id: string;
   createdAt: string;
   input: QuoteInput;
+  procedureId?: string;
+  procedureName?: string;
+  procedureSteps?: string[];
   pricePerUnit: number;
   priceUnit: string;
   mtPrice: number;
