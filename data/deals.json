@@ -1,0 +1,17 @@
+[
+  {
+    "id": "ce2b4834-0a73-4563-8c59-780f6d00279f",
+    "createdAt": "2026-06-03T21:16:25.402Z",
+    "updatedAt": "2026-06-03T21:17:18.812Z",
+    "stage": "lead",
+    "buyerCompany": "Aramco Trading",
+    "buyerContact": "",
+    "buyerEmail": "",
+    "product": "EN590",
+    "deliveryTerm": "FOB",
+    "destinationPort": "",
+    "contractValue": 25000000,
+    "commissionTotal": 250000,
+    "notes": ""
+  }
+]

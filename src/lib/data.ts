@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { PricingConfig, PricingHistoryEntry, QuoteResult } from './types';
+import { PricingConfig, PricingHistoryEntry, QuoteResult, Deal } from './types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
@@ -46,4 +46,41 @@ export function saveQuote(quote: QuoteResult): void {
 
 export function getQuote(id: string): QuoteResult | undefined {
   return getQuotes().find(q => q.id === id);
+}
+
+export function getDeals(): Deal[] {
+  return readJSON<Deal[]>('deals.json');
+}
+
+export function saveDeal(deal: Deal): void {
+  const deals = getDeals();
+  const idx = deals.findIndex(d => d.id === deal.id);
+  if (idx >= 0) {
+    deals[idx] = deal;
+  } else {
+    deals.unshift(deal);
+  }
+  writeJSON('deals.json', deals);
+}
+
+export function getDeal(id: string): Deal | undefined {
+  return getDeals().find(d => d.id === id);
+}
+
+export function updateDealStage(id: string, stage: Deal['stage']): Deal | undefined {
+  const deals = getDeals();
+  const deal = deals.find(d => d.id === id);
+  if (!deal) return undefined;
+  deal.stage = stage;
+  deal.updatedAt = new Date().toISOString();
+  writeJSON('deals.json', deals);
+  return deal;
+}
+
+export function deleteDeal(id: string): boolean {
+  const deals = getDeals();
+  const filtered = deals.filter(d => d.id !== id);
+  if (filtered.length === deals.length) return false;
+  writeJSON('deals.json', filtered);
+  return true;
 }

@@ -62,3 +62,40 @@ export interface QuoteResult {
   procedure: string;
   asOfDate: string;
 }
+
+export const DEAL_STAGES = [
+  'lead',
+  'quote_sent',
+  'follow_up',
+  'deal_in_process',
+  'final_deal',
+  'commission_paid',
+] as const;
+
+export type DealStage = typeof DEAL_STAGES[number];
+
+export const DEAL_STAGE_LABELS: Record<DealStage, string> = {
+  lead: 'Lead',
+  quote_sent: 'Quote Sent',
+  follow_up: 'Follow Up',
+  deal_in_process: 'Deal in Process',
+  final_deal: 'Final Deal',
+  commission_paid: 'Commission Paid',
+};
+
+export interface Deal {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  stage: DealStage;
+  buyerCompany: string;
+  buyerContact: string;
+  buyerEmail: string;
+  product: string;
+  deliveryTerm: 'FOB' | 'CIF';
+  destinationPort: string;
+  contractValue: number;
+  commissionTotal: number;
+  quoteId?: string;
+  notes: string;
+}
